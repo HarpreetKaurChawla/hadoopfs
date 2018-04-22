@@ -1,0 +1,40 @@
+#!/bin/bash
+clear
+
+touch SampleFile
+for((i=0;i<5;i++))
+do
+s=""
+for((j=0;j<10;j++))
+do
+if test $j = 9
+then
+d=$(date +"%m -%d-%Y")
+s=$s" R"$i"c"$d
+else
+s=$s" R"$i"c"$j
+fi
+done
+echo $s>> "SampleFile"
+done
+
+
+#hadoop fs -mkdir /user/hive/reet1
+
+#hadoop fs -ls /user/hive/reet1
+
+
+hive -e 'SET hive.exec.dynamic.partition=false;'
+hive -e 'SET hive.exec.dynamic.partition.mode=strict;'
+
+create External table if not exists ${TableCar}(Name String,make String,model String) partitioed by (Year Date)
+Row Format delimited
+fields terminated by ' '
+lines terminated by '\n'
+stored as parquet;
+
+
+
+
+load data local inpath '/home/cloudera/workspace/SampleFile' overwrite into table TableCars
+partition (Year ='2017')
