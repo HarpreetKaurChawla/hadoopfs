@@ -23,18 +23,23 @@ done
 
 #hadoop fs -ls /user/hive/reet1
 
+# create static partition table
 
-hive -e 'SET hive.exec.dynamic.partition=false;'
-hive -e 'SET hive.exec.dynamic.partition.mode=strict;'
+SET hive.exec.dynamic.partition=false;
+SET hive.exec.dynamic.partition.mode=strict;
 
-create External table if not exists ${TableCar}(Name String,make String,model String) partitioed by (Year Date)
-Row Format delimited
-fields terminated by ' '
-lines terminated by '\n'
-stored as parquet;
-
+create External table if not exists TableCars(Name String,make String,model String) partitioned by(Yea
+r Date)
+stored as textfile;
 
 
 
-load data local inpath '/home/cloudera/workspace/SampleFile' overwrite into table TableCars
-partition (Year ='2017')
+
+load data local inpath "/home/cloudera/workspace/SampleFile" overwrite into table TableCars partition 
+(Year = '2018-04-22');
+
+#creating hive managed table
+
+ create table hive_table(name string,make string, model string,year date);
+
+load data local inpath "/home/cloudera/workspace/SampleFile" overwrite into table hive_table;
