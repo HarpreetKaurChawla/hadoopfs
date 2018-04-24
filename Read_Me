@@ -1,0 +1,6 @@
+Create table file is create table.hql file.
+it creates sample for external table then creates an external table, which is first being created for static partition and 
+then loaded with sample data
+CreateDynamicTable.hql is used for staging data for dynamin  partition and then creating table and loading with Dynamicsamplefile
+ScriptDynaSample is used to create Dynamic sample file
+Master.sh calls the both scripts using beeline
