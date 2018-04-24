@@ -2,12 +2,12 @@
 clear
 
 touch SampleFile
-for((i=0;i<5;i++))
+for((i=0;i<50000;i++))
 do
 s=""
-for((j=0;j<10;j++))
+for((j=0;j<500;j++))
 do
-if test $j = 9
+if test $j = 499
 then
 d=$(date +"%m -%d-%Y")
 s=$s" R"$i"c"$d
